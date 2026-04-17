@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="游戏大厅 | 博雅的数字领地">
+    
+    <div class="hero">
+        <h1>🕹️ 极客游乐场 (Game Hub)</h1>
+        <p>基于 M4 芯片本地算力驱动的 Web 原生测试实验舱。</p>
+    </div>
+
+    <div class="section">
+        <h2>/> 可选实验项目</h2>
+        
+        <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+            
+            <a href="/games/gold-miner" style="display: block; padding: 20px; background: rgba(0,0,0,0.3); border: 1px solid var(--accent-color); border-radius: 8px; text-decoration: none; color: var(--text-main); transition: background 0.3s;">
+                <h3 style="margin: 0; color: var(--accent-color);">⛏️ 深海黄金矿工 (v1.0)</h3>
+                <p style="margin: 5px 0 0 0; font-size: 0.9rem; color: var(--text-muted);">利用重力钩爪，在暗物质领域中抓取价值核心。</p>
+            </a>
+
+            <a href="/games/click-test" style="display: block; padding: 20px; background: rgba(0,0,0,0.3); border: 1px solid var(--accent-color); border-radius: 8px; text-decoration: none; color: var(--text-main); transition: background 0.3s;">
+                <h3 style="margin: 0; color: var(--accent-color);">⚡ M4 算力过载测试 (CPS)</h3>
+                <p style="margin: 5px 0 0 0; font-size: 0.9rem; color: var(--text-muted);">测试你在 5 秒内能输出多少次有效指令（手速测试）。</p>
+            </a>
+
+        </div>
+    </div>
+
+</BaseLayout>
