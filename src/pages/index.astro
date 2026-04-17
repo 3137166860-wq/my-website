@@ -1,50 +1,228 @@
----
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
----
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博雅的数字领地</title>
+    <style>
+        /* CSS 样式：定义高级感的灰黑深蓝灵魂 */
+        :root {
+            --bg-color: #050508; /* 极黑底色 */
+            --gradient-blue: linear-gradient(135deg, #0a192f 0%, #112240 100%); /* 深蓝渐变 */
+            --text-main: #ccd6f6; /* 高级冷灰色文字 */
+            --text-muted: #8892b0; /* 暗灰色文字 */
+            --accent-color: #64ffda; /* 赛博青色点缀 */
+        }
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>👋 欢迎来到博雅的极客空间</h1>
-<p>
-  这是我的第一个个人网站，运行在强大的 M4 芯片与 Vercel 全球边缘网络之上。
-</p>
-<p>
-  我在这里记录技术、分享生活，并保持对这个世界的绝对好奇。
-</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* 布局容器 */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* 头部简介 */
+        .hero {
+            padding: 80px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin: 0 0 10px 0;
+            background: linear-gradient(90deg, #fff, var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+        }
+
+        /* 卡片模块 (高级感深蓝背景) */
+        .section {
+            background: var(--gradient-blue);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .section h2 {
+            margin-top: 0;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+        }
+        .section h2::before {
+            content: "/>";
+            color: var(--accent-color);
+            margin-right: 10px;
+            font-family: monospace;
+        }
+
+        /* 爱好标签 */
+        .tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .tag {
+            background: rgba(100, 255, 218, 0.1);
+            color: var(--accent-color);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        /* 留言板表单 */
+        .message-box {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            padding: 15px;
+            border-radius: 8px;
+            box-sizing: border-box;
+            resize: vertical;
+            min-height: 100px;
+            font-family: inherit;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+        button {
+            align-self: flex-start;
+            background: transparent;
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background: rgba(100, 255, 218, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* 留言列表 */
+        #msgList {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .msg-item {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid var(--text-muted);
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="hero">
+        <h1>Hi, 我是博雅.</h1>
+        <p>探索 M4 芯片的算力极限，用极简代码构建高级数字美学。这不仅是一个页面，这是我的互联网折跃点。</p>
+    </div>
+
+    <div class="section">
+        <h2>我的引力场 (Hobbies)</h2>
+        <div class="tags">
+            <span class="tag">极客硬件</span>
+            <span class="tag">系统自动化</span>
+            <span class="tag">黑客帝国</span>
+            <span class="tag">深海潜水</span>
+            <span class="tag">独立摄影</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>访客终端 (Message Board)</h2>
+        <div class="message-box">
+            <textarea id="msgInput" placeholder="留下你的坐标或思绪..."></textarea>
+            <button onclick="leaveMessage()">发送数据</button>
+        </div>
+        <div id="msgList">
+            </div>
+    </div>
+</div>
+
+<script>
+    // JS 魔法：接管浏览器的本地存储，让留言板“假装”有后台
+    
+    // 页面加载时，读取历史留言
+    window.onload = function() {
+        loadMessages();
+    };
+
+    function leaveMessage() {
+        const input = document.getElementById('msgInput');
+        const text = input.value.trim();
+        
+        if (text === '') {
+            alert('输入为空，无法发送。');
+            return;
+        }
+
+        // 获取当前时间
+        const now = new Date();
+        const timeString = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+
+        // 构建留言对象
+        const newMsg = { text: text, time: timeString };
+
+        // 从本地存储读取已有的留言，如果没有则建个空数组
+        let messages = JSON.parse(localStorage.getItem('myMessages')) || [];
+        
+        // 把新留言塞到最前面
+        messages.unshift(newMsg);
+        
+        // 保存回浏览器的存储系统里
+        localStorage.setItem('myMessages', JSON.stringify(messages));
+
+        // 清空输入框并重新渲染列表
+        input.value = '';
+        loadMessages();
+    }
+
+    function loadMessages() {
+        const msgList = document.getElementById('msgList');
+        const messages = JSON.parse(localStorage.getItem('myMessages')) || [];
+        
+        // 清空列表容器
+        msgList.innerHTML = '';
+
+        // 遍历生成留言块
+        messages.forEach(msg => {
+            const div = document.createElement('div');
+            div.className = 'msg-item';
+            div.innerHTML = `<div style="font-size: 0.8rem; color: #8892b0; margin-bottom: 5px;">📍 时间戳: ${msg.time}</div><div>${msg.text}</div>`;
+            msgList.appendChild(div);
+        });
+    }
+</script>
+
+</body>
 </html>
