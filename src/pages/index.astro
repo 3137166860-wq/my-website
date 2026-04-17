@@ -1,147 +1,10 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>博雅的数字领地</title>
-    <style>
-        /* CSS 样式：定义高级感的灰黑深蓝灵魂 */
-        :root {
-            --bg-color: #050508; /* 极黑底色 */
-            --gradient-blue: linear-gradient(135deg, #0a192f 0%, #112240 100%); /* 深蓝渐变 */
-            --text-main: #ccd6f6; /* 高级冷灰色文字 */
-            --text-muted: #8892b0; /* 暗灰色文字 */
-            --accent-color: #64ffda; /* 赛博青色点缀 */
-        }
+---
+// 引入刚刚建好的皮肤
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-        }
-
-        /* 布局容器 */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 60px 20px;
-        }
-
-        /* 头部简介 */
-        .hero {
-            padding: 80px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .hero h1 {
-            font-size: 3rem;
-            margin: 0 0 10px 0;
-            background: linear-gradient(90deg, #fff, var(--text-muted));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 600px;
-        }
-
-        /* 卡片模块 (高级感深蓝背景) */
-        .section {
-            background: var(--gradient-blue);
-            border-radius: 16px;
-            padding: 30px;
-            margin-top: 40px;
-            box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-        .section h2 {
-            margin-top: 0;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-        }
-        .section h2::before {
-            content: "/>";
-            color: var(--accent-color);
-            margin-right: 10px;
-            font-family: monospace;
-        }
-
-        /* 爱好标签 */
-        .tags {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .tag {
-            background: rgba(100, 255, 218, 0.1);
-            color: var(--accent-color);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
-
-        /* 留言板表单 */
-        .message-box {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        textarea {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-main);
-            padding: 15px;
-            border-radius: 8px;
-            box-sizing: border-box;
-            resize: vertical;
-            min-height: 100px;
-            font-family: inherit;
-        }
-        textarea:focus {
-            outline: none;
-            border-color: var(--accent-color);
-        }
-        button {
-            align-self: flex-start;
-            background: transparent;
-            color: var(--accent-color);
-            border: 1px solid var(--accent-color);
-            padding: 10px 25px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-        button:hover {
-            background: rgba(100, 255, 218, 0.1);
-            transform: translateY(-2px);
-        }
-
-        /* 留言列表 */
-        #msgList {
-            margin-top: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .msg-item {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 3px solid var(--text-muted);
-            font-size: 0.95rem;
-        }
-    </style>
-</head>
-<body>
-
-<div class="container">
+<BaseLayout title="博雅的数字领地">
+    
     <div class="hero">
         <h1>Hi, 我是博雅.</h1>
         <p>探索 M4 芯片的算力极限，用极简代码构建高级数字美学。这不仅是一个页面，这是我的互联网折跃点。</p>
@@ -162,67 +25,58 @@
         <h2>访客终端 (Message Board)</h2>
         <div class="message-box">
             <textarea id="msgInput" placeholder="留下你的坐标或思绪..."></textarea>
-            <button onclick="leaveMessage()">发送数据</button>
+            <button id="sendBtn">发送数据</button>
         </div>
         <div id="msgList">
             </div>
     </div>
-</div>
 
-<script>
-    // JS 魔法：接管浏览器的本地存储，让留言板“假装”有后台
-    
-    // 页面加载时，读取历史留言
-    window.onload = function() {
-        loadMessages();
-    };
+    <script>
+        // 页面加载时执行
+        window.addEventListener('DOMContentLoaded', () => {
+            loadMessages();
+            
+            // 绑定按钮点击事件
+            const btn = document.getElementById('sendBtn');
+            if (btn) {
+                btn.addEventListener('click', leaveMessage);
+            }
+        });
 
-    function leaveMessage() {
-        const input = document.getElementById('msgInput');
-        const text = input.value.trim();
-        
-        if (text === '') {
-            alert('输入为空，无法发送。');
-            return;
+        function leaveMessage() {
+            const input = document.getElementById('msgInput');
+            const text = input.value.trim();
+            
+            if (text === '') {
+                alert('输入为空，无法发送。');
+                return;
+            }
+
+            const now = new Date();
+            const timeString = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+            const newMsg = { text: text, time: timeString };
+
+            let messages = JSON.parse(localStorage.getItem('myMessages')) || [];
+            messages.unshift(newMsg);
+            localStorage.setItem('myMessages', JSON.stringify(messages));
+
+            input.value = '';
+            loadMessages();
         }
 
-        // 获取当前时间
-        const now = new Date();
-        const timeString = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+        function loadMessages() {
+            const msgList = document.getElementById('msgList');
+            if (!msgList) return;
+            
+            const messages = JSON.parse(localStorage.getItem('myMessages')) || [];
+            msgList.innerHTML = '';
 
-        // 构建留言对象
-        const newMsg = { text: text, time: timeString };
-
-        // 从本地存储读取已有的留言，如果没有则建个空数组
-        let messages = JSON.parse(localStorage.getItem('myMessages')) || [];
-        
-        // 把新留言塞到最前面
-        messages.unshift(newMsg);
-        
-        // 保存回浏览器的存储系统里
-        localStorage.setItem('myMessages', JSON.stringify(messages));
-
-        // 清空输入框并重新渲染列表
-        input.value = '';
-        loadMessages();
-    }
-
-    function loadMessages() {
-        const msgList = document.getElementById('msgList');
-        const messages = JSON.parse(localStorage.getItem('myMessages')) || [];
-        
-        // 清空列表容器
-        msgList.innerHTML = '';
-
-        // 遍历生成留言块
-        messages.forEach(msg => {
-            const div = document.createElement('div');
-            div.className = 'msg-item';
-            div.innerHTML = `<div style="font-size: 0.8rem; color: #8892b0; margin-bottom: 5px;">📍 时间戳: ${msg.time}</div><div>${msg.text}</div>`;
-            msgList.appendChild(div);
-        });
-    }
-</script>
-
-</body>
-</html>
+            messages.forEach(msg => {
+                const div = document.createElement('div');
+                div.className = 'msg-item';
+                div.innerHTML = `<div style="font-size: 0.8rem; color: #8892b0; margin-bottom: 5px;">📍 时间戳: ${msg.time}</div><div>${msg.text}</div>`;
+                msgList.appendChild(div);
+            });
+        }
+    </script>
+</BaseLayout>
