@@ -1,0 +1,77 @@
+---
+// 1. 引入我们的“深海皮肤”
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="游戏终端 | 博雅的数字领地">
+    
+    <div class="hero">
+        <h1>🎮 极客游乐场</h1>
+        <p>基于 M4 芯片本地算力驱动的 Web 原生测试实验舱。</p>
+    </div>
+
+    <div class="section">
+        <h2>/> M4 算力过载测试 (CPS)</h2>
+        <p style="color: var(--text-muted); margin-bottom: 20px;">
+            系统规则：点击下方启动按钮开始，测试你在 5 秒内能输出多少次有效指令（点击数）。
+        </p>
+        
+        <div style="text-align: center; padding: 30px; background: rgba(0,0,0,0.3); border-radius: 12px; border: 1px solid rgba(100, 255, 218, 0.2);">
+            <div id="timeDisplay" style="font-size: 1.5rem; margin-bottom: 10px; color: var(--accent-color);">时间: 5.0s</div>
+            <div id="scoreDisplay" style="font-size: 3rem; font-weight: bold; margin-bottom: 30px;">0</div>
+            <button id="clickBtn" style="padding: 15px 40px; font-size: 1.2rem; background: var(--accent-color); color: var(--bg-color); border: none;">启动测试</button>
+        </div>
+    </div>
+
+    <script>
+        let score = 0;
+        let timeLeft = 5.0;
+        let isPlaying = false;
+        let timer;
+
+        const btn = document.getElementById('clickBtn');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const timeDisplay = document.getElementById('timeDisplay');
+
+        if(btn) {
+            btn.addEventListener('click', () => {
+                if (!isPlaying) {
+                    // 如果游戏没开始，点击就是启动
+                    startGame();
+                } else {
+                    // 如果游戏进行中，点击就是加分
+                    score++;
+                    scoreDisplay.innerText = score;
+                    // 给按钮加一点极微小的按下动画，提升手感
+                    btn.style.transform = 'scale(0.95)';
+                    setTimeout(() => btn.style.transform = 'scale(1)', 50);
+                }
+            });
+        }
+
+        function startGame() {
+            isPlaying = true;
+            score = 0;
+            timeLeft = 5.0;
+            scoreDisplay.innerText = score;
+            btn.innerText = '⚡ 疯狂点击！';
+            
+            // 开启计时器，每 0.1 秒扣一次时间
+            timer = setInterval(() => {
+                timeLeft -= 0.1;
+                // toFixed(1) 保证只显示一位小数
+                timeDisplay.innerText = `时间: ${timeLeft.toFixed(1)}s`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    isPlaying = false;
+                    timeDisplay.innerText = "测试结束";
+                    btn.innerText = '重新校准';
+                    // 弹出成绩报告
+                    alert(`【M4 算力测试报告】\n\n你的有效指令数: ${score}\n平均输出频率: ${(score/5).toFixed(1)} 次/秒`);
+                }
+            }, 100);
+        }
+    </script>
+
+</BaseLayout>
