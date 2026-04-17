@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BaseLayout.astro
-title: Second post
+title: 第一篇手写博客
 pubDate: 2026-04-17
 ---
 这是我亲自写的第一篇博客，今天，我作为一个第一次研究技术的新手，根据ai的指导，写了一段程序，做了一个网站
