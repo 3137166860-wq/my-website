@@ -11,14 +11,12 @@
             "id": "f9f79951b907d97b",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "src/pages/blog/my-second-post.md",
-                "mode": "source",
-                "source": false
+                "file": "public/favicon.svg"
               },
-              "icon": "lucide-file",
-              "title": "my-second-post"
+              "icon": "lucide-image",
+              "title": "favicon"
             }
           }
         ]
@@ -174,7 +172,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "githobs:Manage a github issue": false,
+      "obsidian-git:Open Git source control": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "canvas:新建白板": false,
@@ -184,10 +182,20 @@
       "bases:新建数据库": false
     }
   },
-  "active": "f9f79951b907d97b",
+  "active": "0603ee6f0bc0dad1",
   "lastOpenFiles": [
-    "src/pages/blog/my-first-post.md",
+    "src/assets/blog-placeholder-about.jpg",
+    "src/assets/blog-placeholder-5.jpg",
+    "src/assets/blog-placeholder-4.jpg",
+    "src/assets/blog-placeholder-3.jpg",
+    "src/assets/blog-placeholder-2.jpg",
+    "src/assets/blog-placeholder-1.jpg",
+    "src/content/blog/first-post.md",
+    "src/content/blog/third-post.md",
+    "src/content/blog/second-post.md",
+    "src/content/blog/markdown-style-guide.md",
     "src/pages/blog/my-second-post.md",
+    "src/pages/blog/my-first-post.md",
     "未命名.md"
   ]
 }
